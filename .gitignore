@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+
+MF-Net_Compute-In-Memory_SRAM_for_Multibit_Precision_Inference_Using_Memory-Immersed_Data_Conversion_and_Multiplication-Free_Operators.pdf

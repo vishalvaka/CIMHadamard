@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: cimhwt
+Version: 0.1.0
+Summary: Compute-in-memory Hadamard Transform simulator
+Author-email: Your Name <you@example.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: scipy>=1.10
+
+# CIM Hadamard Transform (CIM-HWT)
+
+A small simulator and CLI for evaluating compute-in-memory (CIM) execution of the Hadamard transform versus an ideal software fast Walsh-Hadamard transform (FWHT).
+
+## Features
+- FWHT baseline (O(N log N))
+- CIM array simulator with configurable non-idealities (noise, IR drop, ADC quantization)
+- CLI for experiments and error metrics
+- Unit tests
+
+## Install
+```bash
+pip install -e .
+```
+
+## Usage
+Run a size-"N" transform (N power of two) with random input:
+```bash
+python -m cimhwt.cli --size 256 --adc-bits 6 --noise-sigma 0.01
+```
+
+Compare CIM vs ideal FWHT on a random vector and print RMSE/PSNR:
+```bash
+python -m cimhwt.cli --size 1024 --adc-bits 8 --noise-sigma 0.005 --repeat 10
+```
+
+## What is CIM?
+Compute-in-memory uses analog crossbar arrays to perform vector-matrix multiply in place by exploiting Ohm's and Kirchhoff's laws. For Walsh-Hadamard, the matrix is "+1/-1" structured, enabling charge-sharing or time-multiplexed sign handling.
+
+This repo models: finite ADC resolution, additive Gaussian noise, and a simple IR-drop scaling.
+
+## Roadmap
+- Add calibration to remove systematic gain/offset
+- Add bit-slicing for large dynamic ranges
+- Model device variability and drift
